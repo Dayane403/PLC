@@ -7,6 +7,21 @@ void CreerPerso(Perso * perso, const char * nom) {
     snprintf(perso->nom, TAILLE_NOM_PERSO, "%s", nom);
 }
 
+void AfficherPerso(const Perso *perso) {
+    if(perso == NULL) {
+        printf("Erreur, perso non trouvé...");
+        return;
+    }
+
+    printf("Nom du perso : %s\n", perso->nom);
+
+    for(int i = 0; i<perso->nb_creature_equipe; ++i){
+        printf("=== Creature %d/%d ===\n", i+1, perso->nb_creature_equipe);
+        afficher_creature(&perso->equipe_creature[i]);
+    }
+    printf("il y a %d creature(s) dans le stockage de %s\n", perso->nb_creature_stockage,perso->nom);
+    return;
+}
 
 int AddCreatureToTeam(Perso * perso, const Creature * creature) {
     if(creature == NULL || perso == NULL) {

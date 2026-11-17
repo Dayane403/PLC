@@ -17,6 +17,7 @@ struct Perso {
 };
 
 void CreerPerso(Perso * perso, const char * nom);
+void AfficherPerso(const Perso *perso);
 int AddCreatureToTeam(Perso * perso, const Creature * creature);
 int AddCreatureToStockage(Perso * perso, const Creature * creature);
 
