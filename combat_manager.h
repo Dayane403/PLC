@@ -28,7 +28,7 @@ struct Combat {
     Creature * current_creature_joueur2;
 };
 
-Combat * CreerCombat(Perso * perso1, Perso * perso2, TypeCombat type_combat);
+int CreerCombat(Combat * combat, Perso * perso1, Perso * perso2, Creature * creature_sauvage, TypeCombat type_combat);
 Creature * GetCreatureReady(Perso * perso);
 
 void CreatureAttaque(Combat * current_combat);
