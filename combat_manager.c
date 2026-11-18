@@ -2,40 +2,20 @@
 #include <string.h>
 #include "combat_manager.h"
 
-int CreerCombat(Combat * combat, Perso * perso1, Perso * perso2,
-                Creature * creature_sauvage, TypeCombat type_combat) {
-    if(combat == NULL || perso1 == NULL) {
-        printf("Erreur avec le combat ou le joueur...\n");
-        return 0;
-    }
-    if(type_combat == COMBAT_DRESSEUR && perso2 == NULL) {
-        printf("Erreur : un combat de dresseur a besoin de deux perso.\n");
-        return 0;
-    }
-    if(type_combat == COMBAT_SAUVAGE && creature_sauvage == NULL) {
-        printf("Erreur : un combat sauvage a besoin d'une creature sauvage.\n");
-        return 0;
+Combat * CreerCombat(Perso * perso1, Perso * perso2, TypeCombat type_combat) {
+    if(perso1 == NULL || (perso2 == NULL && type_combat == COMBAT_DRESSEUR)) {
+        printf("Erreur avec un des deux perso...");
+        return NULL;
     }
 
-    combat->type = type_combat;
-    combat->nb_round = 0;
-    combat->joueur1 = perso1;
-    combat->current_creature_joueur1 = GetCreatureReady(perso1);
-
-    if(type_combat == COMBAT_SAUVAGE) {
-        combat->joueur2 = NULL;
-        combat->current_creature_joueur2 = creature_sauvage;
-    }
-    else {
-        combat->joueur2 = perso2;
-        combat->current_creature_joueur2 = GetCreatureReady(perso2);
-    }
-
-    if(combat->current_creature_joueur1 == NULL || combat->current_creature_joueur2 == NULL) {
-        printf("Erreur : un des deux camps n'a aucune creature en etat de se battre.\n");
-        return 0;
-    }
-    return 1;
+    Combat newcombat;
+    newcombat.type = type_combat;
+    newcombat.nb_round = 0;
+    newcombat.joueur1 = perso1;
+    newcombat.current_creature_joueur1 = GetCreatureReady(perso1);
+    newcombat.joueur2 = perso2;
+    newcombat.current_creature_joueur2 = GetCreatureReady(perso2);
+    return &newcombat;
 }
 
 Creature * GetCreatureReady(Perso * perso) {
